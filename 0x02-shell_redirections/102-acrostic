@@ -1,2 +1,2 @@
 #!/bin/bash
-awk '{hosts[$1]++} END {for (host in hosts) print host, hosts[host]}' | sort -k2,2nr -k1,1 | head -n 11
+cut -c1 | paste -s | tr -d "[:blank:]"
