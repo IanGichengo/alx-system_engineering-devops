@@ -1,2 +1,2 @@
 #!/bin/bash
-sed -n 'p;n' -
+while read line; do echo $line; read; done
