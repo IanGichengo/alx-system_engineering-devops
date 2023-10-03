@@ -1,2 +1,3 @@
 #!/bin/bash
-BESTCHOL=$((WATER + STIR)) | echo $BESTCHOL
+BESTCHOL=$((WATER + STIR))
+echo $BESTCHOL
