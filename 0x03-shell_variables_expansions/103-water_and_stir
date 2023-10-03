@@ -1,0 +1,2 @@
+#!/bin/bash
+sum_decimal=$(($water_decimal + $stir_decimal))
