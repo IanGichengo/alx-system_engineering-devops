@@ -1,2 +1,2 @@
 #!/bin/bash
-while read line; do echo $line; read; done
+sed -n '1~2p' /dev/stdin
