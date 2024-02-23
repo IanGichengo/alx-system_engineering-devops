@@ -5,5 +5,5 @@ pid=$(pgrep -f "7-highlander")
 
 # If the process exists, send a SIGTERM signal to it
 if [ -n "$pid" ]; then
-    kill "$pid"
+    kill -SIGKILL "$pid"
 fi
