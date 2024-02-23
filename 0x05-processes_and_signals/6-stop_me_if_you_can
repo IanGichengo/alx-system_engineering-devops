@@ -1,13 +1,2 @@
 #!/usr/bin/env bash
-
-terminate() {
-    echo "4-to_infinity_and_beyond is terminated"
-    exit 0
-}
-
-trap terminate SIGINT
-
-while true; do
-    echo "To infinity and beyond"
-    sleep 1
-done
+pkill -f "4-to_infinity_and_beyond"
