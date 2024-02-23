@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 # If the process is running, kill it
 
-if [ -n "$pid" ]; then
+pid=$(pgrep -f ./4-to_infinity_and_beyond)
     kill "$pid"
-    echo "Terminated"
-else
-    echo "Process not found"
-fi
