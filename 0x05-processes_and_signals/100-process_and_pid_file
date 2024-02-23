@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Function to handle signals
 
 signal_handler() {
@@ -18,12 +18,12 @@ signal_handler() {
     esac
 }
 
-# Register signal handlers
+
 trap 'signal_handler SIGTERM' SIGTERM
 trap 'signal_handler SIGINT' SIGINT
 trap 'signal_handler SIGQUIT' SIGQUIT
 
-# Main loop
+
 echo $$ > /var/run/myscript.pid
 while true; do
     echo "To infinity and beyond"
