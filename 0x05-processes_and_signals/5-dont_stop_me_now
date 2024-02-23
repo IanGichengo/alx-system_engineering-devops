@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# If the process is running, kill it
+
+if [ -n "$pid" ]; then
+    kill "$pid"
+    echo "Terminated"
+else
+    echo "Process not found"
+fi
