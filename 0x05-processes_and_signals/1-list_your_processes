@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
 # This script displays a list of currently running processes
-# in a user-oriented format, including process hierarchy.
 
-# Display the header
-printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %s\n" \
-    "USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "START" "COMMAND"
-
-# Iterate over each running process and display information
-ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,command --sort=start | tail -n +2
+ps -ufx
