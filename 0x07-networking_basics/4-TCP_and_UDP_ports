@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Display listening sockets along with PID and program name
+
+netstat -tuln | awk '/^tcp/ || /^udp/ {print $4, $7}' | while read -r local_addr state_pid; do
+    pid=$(echo "$state_pid" | cut -d '/' -f 1)
+    program=$(echo "$state_pid" | cut -d '/' -f 2)
+    echo "Local Address: $local_addr, PID: $pid, Program: $program"
+done
+
