@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Install Nginx
+sudo apt update
+sudo apt install -y nginx
+
+# Ensure Nginx is listening on port 80
+sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+
+# Configure Nginx to return "Hello World!" on root GET request
+sudo bash -c 'cat <<EOF > /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+</body>
+</html>
+EOF'
+
+# Reload Nginx configuration
+sudo nginx -s reload
