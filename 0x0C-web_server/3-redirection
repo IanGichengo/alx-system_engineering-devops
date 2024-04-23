@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Edit the Nginx configuration file
+sudo sed -i '/server {/a \
+    location /redirect_me { \
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \
+    } \
+' /etc/nginx/sites-available/default
+
+# Test the Nginx configuration
+sudo nginx -t
+
+# If the test is successful, reload Nginx
+if [ $? -eq 0 ]; then
+    sudo nginx -s reload
+fi
