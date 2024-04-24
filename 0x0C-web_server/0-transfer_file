@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 
 # Check if less than 4 parameters are passed
+
 if [ "$#" -lt 4 ]; then
-  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
-  exit 1
+    echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
 fi
 
-# Assign the parameters to variables for better readability
-PATH_TO_FILE=$1
-IP=$2
+# Assign the parameters to variables
+FILE=$1
+SERVER_IP=$2
 USERNAME=$3
-PATH_TO_SSH_KEY=$4
+SSH_KEY=$4
 
-# Use scp to transfer the file
-scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$IP:~/"
+# Transfer the file using scp with strict host key checking disabled
+scp -i "$SSH_KEY" -o StrictHostKeyChecking=no "$FILE" "$USERNAME"@"$SERVER_IP":~/
 
-echo "File transferred successfully!"
+# Remotely execute the ls ~/ command via ssh to see what ~/ contains
+ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$USERNAME"@"$SERVER_IP" 'ls ~/'
+
+# Remotely execute the ls ~/ command via ssh to see that the file has been successfully transferred
+ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$USERNAME"@"$SERVER_IP" 'ls ~/' | grep $(basename "$FILE")
