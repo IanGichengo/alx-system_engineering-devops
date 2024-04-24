@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Create custom 404 page file with the specified message
+sudo bash -c 'cat > /usr/share/nginx/html/custom_404.html' <<EOF
+Ceci n'est pas une page
+EOF
+
+# Configure Nginx to use the custom 404 page
+sudo bash -c 'cat > /etc/nginx/sites-available/default' <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    error_page 404 /custom_404.html;
+    location = /custom_404.html {
+        internal;
+    }
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart Nginx
+sudo systemctl restart nginx
