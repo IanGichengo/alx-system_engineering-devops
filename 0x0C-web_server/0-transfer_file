@@ -8,10 +8,10 @@ if [ "$#" -lt 4 ]; then
 fi
 
 # Assign the parameters to variables
-FILE=$1
-SERVER_IP=$2
-USERNAME=$3
-SSH_KEY=$4
+FILE="/ALX/alx-system_engineering-devops/0x0C-web_server/some_page.html"
+SERVER_IP="34.239.249.165"
+USERNAME="ubuntu"
+SSH_KEY="/.ssh/id_rsa"
 
 # Transfer the file using scp with strict host key checking disabled
 scp -i "$SSH_KEY" -o StrictHostKeyChecking=no "$FILE" "$USERNAME"@"$SERVER_IP":~/
