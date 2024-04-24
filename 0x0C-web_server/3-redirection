@@ -7,10 +7,4 @@ sudo sed -i '/server {/a \
     } \
 ' /etc/nginx/sites-available/default
 
-# Test the Nginx configuration
-sudo nginx -t
-
-# If the test is successful, reload Nginx
-if [ $? -eq 0 ]; then
-    sudo nginx -s reload
-fi
+sudo service nginx
