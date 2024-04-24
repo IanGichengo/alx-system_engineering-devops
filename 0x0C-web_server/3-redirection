@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+# Update package index
+sudo apt update
+
 # Install Nginx
-sudo apt-get update
-sudo apt-get install nginx -y
+sudo apt install -y nginx
 
 # Configure redirection
 sudo bash -c 'cat > /etc/nginx/sites-available/default <<EOF
