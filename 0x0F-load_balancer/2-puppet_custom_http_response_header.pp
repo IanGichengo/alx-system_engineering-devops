@@ -1,35 +1,26 @@
-# 2-puppet_custom_http_response_header.pp
-# Install Nginx package
-package { 'nginx':
-  ensure => installed,
+class nginx_custom_header {
+  package { 'nginx':
+    ensure => installed,
+  }
+
+  file { '/etc/nginx/sites-available/default':
+    ensure  => file,
+    content => template('nginx/default.erb'),
+    require => Package['nginx'],
+    notify  => Service['nginx'],
+  }
+
+  service { 'nginx':
+    ensure    => running,
+    enable    => true,
+    subscribe => File['/etc/nginx/sites-available/default'],
+  }
 }
 
-# Define file paths
-$file_nginx_conf = '/etc/nginx/nginx.conf'
-$file_nginx_default = '/etc/nginx/sites-available/default'
+# Use an ERB template for the Nginx default site configuration
+# The template should include the following configuration:
+# add_header X-Served-By <%= @hostname %>;
 
-# Define custom HTTP header configuration
-$hostname = $::hostname
-$http_header_config = "
-    add_header X-Served-By $hostname;
-"
-
-# Configure custom HTTP header in Nginx configuration
-file { $file_nginx_conf:
-  ensure  => present,
-  content => template('nginx/nginx.conf.erb'),
-  notify  => Service['nginx'],
-}
-
-# Configure custom HTTP header in Nginx default site configuration
-file { $file_nginx_default:
-  ensure  => present,
-  content => template('nginx/default_site.conf.erb'),
-  notify  => Service['nginx'],
-}
-
-# Ensure Nginx service is running and enabled
-service { 'nginx':
-  ensure  => running,
-  enable  => true,
+node default {
+  include nginx_custom_header
 }
