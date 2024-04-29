@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Create custom 404 page file with the specified message
 sudo bash -c 'cat > /usr/share/nginx/html/custom_404.html' <<EOF
 Ceci n'est pas une page
