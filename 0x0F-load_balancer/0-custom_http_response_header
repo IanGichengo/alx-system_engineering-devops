@@ -3,6 +3,15 @@
 sudo apt update
 sudo apt install nginx -y
 
+#redirection of the website
+sudo sed -i '/server_name _;/a \	location /redirect_me {\n		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n	}' /etc/nginx/sites-available/default
+
+#custom 404 page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
+
+#configuring nginx to use custom 404 page
+sudo sed -i '/server_name _;/a \        error_page 404 /custom_404.html;\n        location = /custom_404.html {\n                internal;\n        }' /etc/nginx/sites-available/default
+
 # Get the hostname of the server
 HOSTNAME=$(hostname)
 
