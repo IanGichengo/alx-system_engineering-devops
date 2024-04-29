@@ -1,30 +1,13 @@
 #!/usr/bin/env bash
-# Update package index
-sudo apt update
+#!/bin/bash
 
-# Install Nginx
-sudo apt install -y nginx
+# Define the redirect location block
+REDIRECT_BLOCK="location /redirect_me {
+	return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+}"
 
-# Configure redirection
-sudo bash -c 'cat > /etc/nginx/sites-available/default <<EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+# Edit the default Nginx configuration file to add the redirect location block
+sudo sed -i "/server_name _;/a \\$REDIRECT_BLOCK" /etc/nginx/sites-available/default
 
-    root /var/www/html;
-    index index.html index.htm;
-
-    server_name _;
-
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOF'
-
-# Restart Nginx
-sudo systemctl restart nginx
+# Restart Nginx service
+sudo service nginx restart
