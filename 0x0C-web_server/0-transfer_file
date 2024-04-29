@@ -7,16 +7,10 @@ if [ "$#" -lt 4 ]; then
 fi
 
 # Assign the parameters to variables
-FILE="/ALX/alx-system_engineering-devops/0x0C-web_server/some_page.html"
-SERVER_IP="34.239.249.165"
-USERNAME="ubuntu"
-SSH_KEY="/.ssh/id_rsa"
+path_to_file=$1
+ip=$2
+username=$3
+path_to_ssh_key=$4
 
-# Transfer the file using scp with strict host key checking disabled
-scp -i "$SSH_KEY" -o StrictHostKeyChecking=no "$FILE" "$USERNAME"@"$SERVER_IP":~/
-
-# Remotely execute the ls ~/ command via ssh to see what ~/ contains
-ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$USERNAME"@"$SERVER_IP" 'ls ~/'
-
-# Remotely execute the ls ~/ command via ssh to see that the file has been successfully transferred
-ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$USERNAME"@"$SERVER_IP" 'ls ~/' | grep $(basename "$FILE")
+# Transfer the file using scp
+scp -i "$path_to_ssh_key" -o StrictHostKeyChecking=no "$path_to_file" "$username@$ip:~/"
