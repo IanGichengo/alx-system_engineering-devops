@@ -7,5 +7,4 @@ REDIRECT_BLOCK="location /redirect_me {
 # Edit the default Nginx configuration file to add the redirect location block
 sudo sed -i "/server_name _;/a \\$REDIRECT_BLOCK" /etc/nginx/sites-available/default
 
-# Restart Nginx service
-sudo service nginx restart
+sudo service nginx
