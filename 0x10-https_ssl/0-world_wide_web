@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Function to display DNS record information
+display_dns_record() {
+    local record_type=$(echo "$1" | awk '{print $4}')
+    local destination=$(echo "$1" | awk '{print $5}')
+    echo "The subdomain $2 is a $record_type record and points to $destination"
+}
+
+# Check if domain argument is provided
+if [ -z "$1" ]; then
+    echo "Error: Domain name is required."
+    exit 1
+fi
+
+# Default subdomains to check if no subdomain argument is provided
+declare -a subdomains=("www" "lb-01" "web-01" "web-02")
+
+# If a subdomain argument is provided, check only that subdomain
+if [! -z "$2" ]; then
+    subdomains=("$2")
+fi
+
+# Loop through each subdomain and display its DNS record information
+for subdomain in "${subdomains[@]}"; do
+    # Query DNS record for the subdomain
+    record_info=$(dig +short "$subdomain.$1" A)
+    
+    # Check if the record_info variable is not empty
+    if [ -n "$record_info" ]; then
+        # Display the DNS record information
+        display_dns_record "$record_info"
+    else
+        echo "Error: Could not find DNS record for $subdomain.$1"
+    fi
+done
