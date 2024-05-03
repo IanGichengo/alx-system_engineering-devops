@@ -1,19 +1,19 @@
-global
-    log stdout format raw local0
-
-defaults
-    mode http
-    timeout connect 5000ms
-    timeout client 50000ms
-    timeout server 50000ms
+# /etc/haproxy/haproxy.cfg
 
 frontend http-in
     bind *:80
-    redirect scheme https code 301 if!{ ssl_fc }
+    mode http
+    option forwardfor
+    option http-server-close
+    option http-pretend-keepalive
+    redirect scheme https code 301 if !{ ssl_fc }
 
 frontend https-in
-    bind *:443 ssl crt /path/to/your/certificate.pem
-    default_backend servers
+    bind *:443 ssl crt /etc/ssl/private/your_certificate.pem
+    mode http
+    option forwardfor
+    option http-server-close
+    option http-pretend-keepalive
+    # Your other HTTPS settings
 
-backend servers
-    server server1 127.0.0.1:80 check
+# Your other backend configurations
