@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Function to display DNS record information
 display_dns_record() {
     local record_type=$(echo "$1" | awk '{print $4}')
