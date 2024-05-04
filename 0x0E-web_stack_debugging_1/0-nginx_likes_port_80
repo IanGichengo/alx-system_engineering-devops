@@ -8,5 +8,5 @@ rm /etc/nginx/sites-enabled/default
 # Create a symbolic link to the default configuration
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Reload Nginx to apply the changes
-sudo service nginx reload
+# Start Nginx to apply the changes
+sudo service nginx start
