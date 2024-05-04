@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Ensure Nginx is running
 sudo systemctl start nginx
 
