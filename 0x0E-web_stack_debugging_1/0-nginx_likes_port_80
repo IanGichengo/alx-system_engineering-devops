@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
-# Ensure Nginx is running
+#debugging nginx to listen to port80
+#create a symbolic link
 
-sudo systemctl start nginx
-if! grep -q "listen 80;" /etc/nginx/nginx.conf; then
-    echo "Configuring Nginx to listen on port 80..."
-    sudo sed -i 's/listen\s*80;/listen 80;/g' /etc/nginx/nginx.conf
-    sudo systemctl restart nginx
-fi
-echo "Mapping container's port 80 to host's port 80..."
-docker run -d -p 80:80 --name my_nginx_container nginx
+rm /etc/nginx/sites-enabled/default
+cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx start
