@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-#debugging nginx to listen to port80
-#create a symbolic link
+# Debugging Nginx not listening on port 80
+# Create a symbolic link between the two files
 
+# Remove the existing symbolic link if it exists
 rm /etc/nginx/sites-enabled/default
-cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo service nginx start
+
+# Create a symbolic link to the default configuration
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Reload Nginx to apply the changes
+sudo service nginx reload
