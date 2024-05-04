@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Change default port to 80, restart Nginx, and kill lingering processes
-
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-sudo service nginx restart
-pkill -o nginx
+apt update
+apt install nginx
+service nginx stop
+service nginx status | grep "not running" && service nginx start
