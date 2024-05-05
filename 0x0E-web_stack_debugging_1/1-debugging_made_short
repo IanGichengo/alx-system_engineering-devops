@@ -2,4 +2,4 @@
 apt update
 apt install nginx
 service nginx stop
-service nginx status | grep "not running" && service nginx start
+ps aux | grep nginx | grep -v grep || service nginx start
