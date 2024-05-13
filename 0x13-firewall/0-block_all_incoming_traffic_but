@@ -1,3 +1,4 @@
+# check the status, enable the specific ports and start the firewall
 sudo ufw status
 sudo ufw allow 22
 sudo ufw allow 443
