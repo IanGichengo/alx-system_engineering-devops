@@ -2,8 +2,6 @@
 # Stop Nginx service if it's running
 
 sudo service nginx stop
-
-# Stop Apache2 service if it's running, as it might conflict with Nginx
 sudo pkill apache2
 
 # Modify the main Nginx configuration file to run as the 'nginx' user
@@ -18,9 +16,3 @@ sudo nginx -t
 
 # Start Nginx service
 sudo service nginx start
-
-# Verify Nginx is running as 'nginx' user and listening on port 8080
-ps auxff | grep ngin[x]
-netstat -tuln | grep :8080
-
-echo "Nginx has been configured to run as the 'nginx' user and is listening on port 8080."
