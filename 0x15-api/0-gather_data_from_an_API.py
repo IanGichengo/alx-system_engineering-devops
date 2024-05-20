@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 # For a given employee ID, returns information about his/her TO-DO list progress
 
 import requests
