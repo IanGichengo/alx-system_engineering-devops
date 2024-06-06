@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 ''' returns the number of subscribers '''
-
 import requests
 
 
 def number_of_subscribers(subreddit):
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {'User-Agent': 'My Agent'}
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {"User-Agent": "My Reddit Subscribers Checker"}
 
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code == 200:
+    try:
+        response = requests.get(url, headers=headers)
         data = response.json()
-        subs = data.get('data').get('subscribers')
-        return subs
-    else:
+        return data["data"]["subscribers"]
+    except (requests.RequestException, KeyError):
         return 0
