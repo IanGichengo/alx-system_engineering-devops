@@ -2,6 +2,7 @@
 ''' outputs the number of subs '''
 import requests
 
+
 def number_of_subscribers(subreddit):
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
     headers = {'User-Agent': 'custom-agent-for-querying-reddit-api'}
