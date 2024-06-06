@@ -4,15 +4,16 @@ import requests
 
 
 def number_of_subscribers(subreddit):
-    url = f"https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {'User-Agent': 'custom-agent-for-querying-reddit-api'}
+    """
+    Queries the Reddit API, returns number of subscribers for a subreddit.
+    If the subreddit is invalid, returns 0.
+    """
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {"User-Agent": "My Reddit Subscribers Checker"}
 
     try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        if response.status_code == 200:
-            data = response.json()
-            return data['data']['subscribers']
-        else:
-            return 0
-    except requests.RequestException:
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        return data["data"]["subscribers"]
+    except (requests.RequestException, KeyError):
         return 0
