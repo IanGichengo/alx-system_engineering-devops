@@ -4,8 +4,7 @@ import requests
 
 
 def number_of_subscribers(subreddit):
-    '''the function '''
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    url = f"https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {'User-Agent': 'custom-agent-for-querying-reddit-api'}
 
     try:
