@@ -1,24 +1,7 @@
-# 0-strace_is_your_friend.pp
+# fix the internal error on the server
+  $php_rout = '/var/www/html/wp-settings.php'
 
-# Ensure the /var/www/html directory exists with the correct permissions
-file { '/var/www/html':
-  ensure  => 'directory',
-  owner   => 'www-data',
-  group   => 'www-data',
-  mode    => '0755',
-  require => Class['apache'],
-}
-
-# Ensure Apache service is running
-service { 'apache2':
-  ensure => 'running',
-  enable => true,
-  require => File['/var/www/html'],
-}
-
-# Restart Apache to apply any changes
-exec { 'restart_apache':
-  command     => '/usr/sbin/service apache2 restart',
-  refreshonly => true,
-  subscribe   => File['/var/www/html'],
-}
+  exec { 'replace_line':
+    command => "sed -i 's/phpp/php/g' ${php_rout}",
+    path    => ['/bin','/usr/bin']
+  }
