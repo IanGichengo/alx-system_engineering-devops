@@ -31,3 +31,4 @@ def count_words(subreddit, word_list, counts={}, after=""):
             print(f"{word}: {count}")
     else:
         count_words(subreddit, word_list, counts, after)
+
